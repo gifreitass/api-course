@@ -9,6 +9,10 @@ router.get('/', (_, res) => {
 	return res.send('Olá, dev!')
 })
 
-router.post('/cidades', CidadesController.create)
+//exemplo de onde os dados chegam, middleware e controller
+router.post('/cidades', 
+CidadesController.createValidation, 
+CidadesController.create
+)
 
 export { router }
