@@ -1,6 +1,6 @@
 import { RequestHandler } from "express"
 import { StatusCodes } from "http-status-codes"
-import { AnyObject, Maybe, ObjectSchema, Schema, ValidationError } from "yup"
+import { AnyObject, Maybe, ObjectSchema, ValidationError } from "yup"
 
 type TProperty = 'body' | 'header' | 'params' | 'query'
 
@@ -18,8 +18,6 @@ type TValidation = (getAllSchemas: TGetAllSchemas) => RequestHandler
 
 export const validation: TValidation = (getAllSchemas) => async (req, res, next) => {
     const schemas = getAllSchemas(schema => schema)
-
-    console.log(Object.entries(schemas))
 
     //erros que vamos devolver ao usuário
     const errorsResult: Record<string, Record<string, string>> = {}
