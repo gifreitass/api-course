@@ -18,7 +18,15 @@ export const getAllValidation = validation((getSchema) => ({
 }))
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
-    console.log(req.query)
+    //o navegador só terá acesso ao header quando usarmos o expose headers
+    res.setHeader('acess-control-expose-headers', 'x-total-count')
+    //seta o valor do header
+    res.setHeader('x-total-count', 1)
 
-    return res.status(StatusCodes.CREATED).send('Dados das cidades coletados')
+    return res.status(StatusCodes.OK).json([
+        {
+            id: 1,
+            nome: 'São Paulo'
+        }
+    ])
 }

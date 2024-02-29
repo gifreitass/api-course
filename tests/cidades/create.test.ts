@@ -10,7 +10,7 @@ describe('Cidades - Create', () => {
         expect(res.statusCode).toEqual(StatusCodes.CREATED)
         expect(typeof res.body).toEqual('number')
     });
-    it('Não pode criar registro com nome muito curto', async () => {
+    it('Tenta criar um registro com nome muito curto', async () => {
         const res = await testServer
             .post('/cidades')
             .send({nome: 'SP'})
