@@ -2,15 +2,13 @@ import { Request, RequestHandler, Response } from "express"
 import * as yup from 'yup'
 import { validation } from "../../shared/middleware";
 import { StatusCodes } from "http-status-codes";
+import { ICidade } from "../../database/models";
 
-//todos os parâmetros que vamos receber
-interface ICidade {
-    nome: string;
-}
+interface IBodyProps extends Omit<ICidade, 'id'> {}
 
 //retornando um middleware para validação
 export const createValidation = validation((getSchema) => ({
-    body: getSchema<ICidade>(yup.object().shape({
+    body: getSchema<IBodyProps>(yup.object().shape({
         nome: yup.string().required().min(3)
     }))
 }))
