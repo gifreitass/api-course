@@ -15,22 +15,23 @@ export const deleteByIdValidation = validation((getSchema) => ({
 }))
 
 export const deleteById = async (req: Request<IParamProps>, res: Response) => {
-    const result = await CidadesProvider.deleteById(req.body)
+    if (!req.params.id) {
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            errors: {
+                default: 'O parâmetro "id" precisa ser informado'
+            }
+        });
+    }
 
+    const result = await CidadesProvider.deleteById(req.params.id)
+    
     if (result instanceof Error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
                 default: result.message
             }
         });
-    }
-
-    if(Number(req.params.id) === 9999) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: {
-                default: 'Registro não encontrado'
-            }
-        })
+        return
     }
 
     return res.status(StatusCodes.NO_CONTENT).send()
