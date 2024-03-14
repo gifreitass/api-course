@@ -4,7 +4,7 @@ import { ICidade } from "../../models";
 
 export const create = async (cidade: Omit<ICidade, 'id'>): Promise<number | Error> => {
     try {
-        //array pq poderia inserir mais cidade de uma vez usando []
+        //array pq poderia inserir mais cidades de uma vez usando []
         const [result] = await Knex(ETableNames.cidade).insert(cidade).returning('id')
 
         if (typeof result === 'object') {
