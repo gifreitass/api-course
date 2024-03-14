@@ -11,8 +11,9 @@ export const development: Knex.Config = {
     migrations: {
         directory: path.resolve(__dirname, '..', 'migrations')
     },
+    //seed: função para popular a api com dados depois das migrations serem rodadas
     seeds: {
-        directory: path.resolve(__dirname, '..', 'migrations')
+        directory: path.resolve(__dirname, '..', 'seeds')
     },
     //ex: se tiver uma pessoa vinculada com cidade e tentar apagar essa cidade, não vai dar certo por conta do vínculo
     pool: {

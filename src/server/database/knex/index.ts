@@ -1,5 +1,5 @@
 import knex from "knex";
-import { development, production, test } from "./Enviroment"; 
+import { development, production, test } from "./Environment"; 
 
 const getEnviroment = () => {
     switch (process.env.NODE_ENV) {

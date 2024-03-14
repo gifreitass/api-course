@@ -1,5 +1,5 @@
 import { Knex } from './server/database/knex'
-import { server } from './server/server' 
+import { server } from './server/server'
 
 const startServer = () => {
     server.listen(process.env.PORT || 3333, () => console.log('app rodando'))
@@ -9,9 +9,11 @@ const startServer = () => {
 //verificação com if para ver o ambiente (se estiver no localhost rodamos as migrations de forma manual, e não queremos que sejam executadas o tempo todo)
 if (process.env.IS_LOCALHOST !== 'true') {
     Knex.migrate.latest().then(() => {
-        startServer()
+        Knex.seed.run()
+            .then(() => { startServer() })
+            .catch(console.log)
     })
-    .catch(console.log)
+        .catch(console.log)
 } else {
     startServer()
 }
