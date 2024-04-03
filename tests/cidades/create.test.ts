@@ -19,3 +19,4 @@ describe('Cidades - Create', () => {
         expect(res.body).toHaveProperty('errorsResult.body.nome')
     });
 })
+

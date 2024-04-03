@@ -28,3 +28,6 @@ export const create: RequestHandler = async (req: Request<{}, {}, ICidade>, res:
 
     return res.status(StatusCodes.CREATED).json(result);
 }
+
+//assim que o usuário fizer um post para criar uma nova cidade, será chamada a função de validação, caso os dados passem na validação a 
+//função de criação será executada, e dentro dela estão os providers para criação no banco de dados

@@ -10,8 +10,8 @@ export const getById = async (id: number): Promise<IPessoa | Error> => {
             return result
         }
 
-        return new Error('Não foi possível localizar a pessoa')
+        return new Error('Registro não encontrado')
     } catch (error) {
-        return new Error('Não foi possível localizar a pessoa')
+        return new Error('Registro não encontrado')
     }
 }

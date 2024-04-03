@@ -7,8 +7,8 @@ import * as updateById from './updateById'
 export const PessoasController = {
     //tudo do arquivo ficará acessível
     ...create,
-    // ...getAll,
-    // ...getById,
-    // ...deleteById,
-    // ...updateById
+    ...getAll,
+    ...getById,
+    ...deleteById,
+    ...updateById
 }

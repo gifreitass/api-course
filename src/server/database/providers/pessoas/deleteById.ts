@@ -9,8 +9,8 @@ export const deleteById = async (id: number): Promise<void | Error> => {
             return
         }
 
-        return new Error('Não foi possível deletar a pessoa')
+        return new Error('Não foi possível deletar o registro')
     } catch (error) {
-        return new Error('Não foi possível deletar a pessoa')
+        return new Error('Não foi possível deletar o registro')
     }
 }
