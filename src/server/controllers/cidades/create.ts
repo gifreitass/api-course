@@ -19,7 +19,7 @@ export const create: RequestHandler = async (req: Request<{}, {}, ICidade>, res:
     const result = await CidadesProvider.create(req.body)
 
     if (result instanceof Error) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
                 default: result.message
             }
