@@ -18,18 +18,9 @@ export const signUpValidation = validation((getSchema) => ({
 export const signUp = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
     const existentUser = await UsuariosProvider.getByEmail(req.body.email)
 
-    //não deu erro e o registro foi localizado
-    if (existentUser) {
-        res.status(StatusCodes.CONFLICT).json({
-            errors: {
-                default: 'E-mail já cadastrado'
-            }
-        });
-    }
-
-    //validação para verificar se o usuário existe ou não
+    //validação para verificar algum erro na requisição do getByEmail
     if (existentUser instanceof Error && existentUser.message !== "Registro não localizado") {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
                 default: existentUser.message
             }
@@ -39,7 +30,7 @@ export const signUp = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
     const result = await UsuariosProvider.create(req.body)
 
     if (result instanceof Error) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
                 default: result.message
             }

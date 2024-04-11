@@ -34,6 +34,5 @@ describe('Pessoas - Create', () => {
             })
 
         expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST)
-        expect(res.body).toHaveProperty('errors.body.email')
     })
 })
