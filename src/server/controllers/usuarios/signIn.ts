@@ -4,7 +4,7 @@ import { IUsuario } from "../../database/models";
 import { UsuariosProvider } from "../../database/providers/usuarios";
 import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
-import { passwordCrypto } from "../../shared/services";
+import { JWTService, passwordCrypto } from "../../shared/services";
 
 interface IBodyProps extends Omit<IUsuario, 'id' | 'nome'> { }
 
@@ -18,9 +18,9 @@ export const signInValidation = validation((getSchema) => ({
 export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
     const { email, senha } = req.body
 
-    const result = await UsuariosProvider.getByEmail(email)
+    const user = await UsuariosProvider.getByEmail(email)
 
-    if (result instanceof Error) {
+    if (user instanceof Error) {
         return res.status(StatusCodes.UNAUTHORIZED).json({
             errors: {
                 default: 'E-mail ou senha inválidos'
@@ -28,7 +28,7 @@ export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
         });
     }
 
-    const passwordValidation = await passwordCrypto.verifyPassword(senha, result.senha)
+    const passwordValidation = await passwordCrypto.verifyPassword(senha, user.senha)
 
     if (!passwordValidation) {
         return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -37,6 +37,16 @@ export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
             }
         });
     } else {
-        return res.status(StatusCodes.OK).json({ accessToken: 'teste.teste.teste' })
+        const accessToken = JWTService.sign({ uid: user.id })
+        
+        if (accessToken === 'JWT_SECRET_NOT_FOUND') {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                errors: {
+                    default: 'E-mail ou senha inválidos'
+                }
+            });
+        }
+
+        return res.status(StatusCodes.OK).json(accessToken)
     }
 }
