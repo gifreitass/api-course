@@ -1,7 +1,6 @@
 //o JWT não tem dados criptografados
 //qnd recebemos um JWT, para verificarmos se ele é válido utilizamos a mesma chave que geramos para gerar
-//na outra parte estarão os dados que vamos passar para o usuário (ex: id), vamos passar para dentro do JWT
-
+//e na outra parte estarão os dados que vamos passar para o usuário (ex: id), vamos passar para dentro do JWT
 
 import * as jwt from 'jsonwebtoken'
 //id do usuário, pois o JWT vai ser gerado exclusivamente para um usuário

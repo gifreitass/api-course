@@ -37,16 +37,17 @@ export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
             }
         });
     } else {
+        //geração do token de acesso
         const accessToken = JWTService.sign({ uid: user.id })
         
         if (accessToken === 'JWT_SECRET_NOT_FOUND') {
-            return res.status(StatusCodes.UNAUTHORIZED).json({
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 errors: {
-                    default: 'E-mail ou senha inválidos'
+                    default: 'Erro ao gerar o token de acesso'
                 }
             });
         }
 
-        return res.status(StatusCodes.OK).json(accessToken)
+        return res.status(StatusCodes.OK).json({ accessToken })
     }
 }
