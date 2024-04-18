@@ -34,7 +34,6 @@ const verify = (token: string): IJwtData | 'JWT_SECRET_NOT_FOUND' | 'INVALID_TOK
     } catch (error) {
         return 'INVALID_TOKEN'
     }
-
 }
 
 export const JWTService = {
