@@ -1,7 +1,6 @@
 //permite criar uma espécie de middleware para o servidor, onde podemos especificar as nossas rotas
 import { Router } from 'express'
 import { CidadesController, PessoasController, UsuariosController } from './../controllers'
-import { signUpValidation } from '../controllers/usuarios/signUp'
 import { ensureAuthenticated } from '../shared/middleware/ensureAuthenticated'
 
 const router = Router()
@@ -25,6 +24,5 @@ router.delete('/pessoas/:id', ensureAuthenticated, PessoasController.deleteByIdV
 
 router.post('/cadastrar', UsuariosController.signUpValidation, UsuariosController.signUp)
 router.post('/entrar', UsuariosController.signInValidation, UsuariosController.signIn)
-
 
 export { router } 
